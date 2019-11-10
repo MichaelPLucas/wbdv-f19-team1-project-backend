@@ -29,14 +29,48 @@ router.post('/', (req, res, next) => {
         }
 
         const msg = body.animals.map(x => {
-          console.log(x)
           return {
             name: x.name,
             photo: x.photos[0] ? x.photos[0].full : null,
             description: x.description,
-            breed: x.breeds.primary
+            breed: x.breeds.primary,
+            id: x.id
           };
         });
+
+        res.status(200).send(msg);
+      })
+    })
+    .catch(err => {
+      return err;
+    })
+});
+
+/* GET route for id based search */
+router.get('/:id', (req, res, next) => {
+  util.getToken()
+    .then(token => {
+      const options = {
+        method: 'GET',
+        url: 'https://api.petfinder.com/v2/animals/' + req.params.id,
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
+        json: true
+      };
+
+      request(options, (err, _, body) => {
+        if (err) {
+          console.log(err);
+        }
+
+        const msg = {
+          name: body.animal.name,
+          photo: body.animal.photos[0] ? body.animal.photos[0].full : null,
+          description: body.animal.description,
+          breed: body.animal.breeds.primary,
+          id: body.animal.id
+        };
 
         res.status(200).send(msg);
       })
