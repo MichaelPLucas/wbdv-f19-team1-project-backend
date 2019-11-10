@@ -23,9 +23,14 @@ router.post('/', (req, res, next) => {
         json: true
       };
 
-      request(options, (err, _, body) => {
-        if (err) {
+      request(options, (err, response, body) => {
+        if (err || response.statusCode != 200) {
           console.log(err);
+          const error = {
+            error: 'Request parameters invalid or improperly formatted'
+          }
+          res.status(400).send(error);
+          return;
         }
 
         const msg = body.animals.map(x => {
@@ -59,9 +64,14 @@ router.get('/:id', (req, res, next) => {
         json: true
       };
 
-      request(options, (err, _, body) => {
-        if (err) {
+      request(options, (err, response, body) => {
+        if (err || response.statusCode != 200) {
           console.log(err);
+          const error = {
+            error: 'ID not found or improperly formatted'
+          }
+          res.status(400).send(error);
+          return;
         }
 
         const msg = {
