@@ -51,6 +51,39 @@ router.post('/', (req, res, next) => {
     })
 });
 
+/* GET route for animal types */
+router.get('/types', (req, res, next) => {
+  util.getToken()
+    .then(token => {
+      const options = {
+        method: 'GET',
+        url: 'https://api.petfinder.com/v2/types/',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        },
+        json: true
+      };
+
+      request(options, (err, response, body) => {
+        if (err || response.statusCode != 200) {
+          console.log(err);
+          const error = {
+            error: 'Something went wrong internally, contact a developer'
+          }
+          res.status(500).send(error);
+          return;
+        }
+
+        const msg = body.types.map(x => x.name.toLowerCase());
+
+        res.status(200).send(msg);
+      })
+    })
+    .catch(err => {
+      return err;
+    })
+});
+
 /* GET route for id based search */
 router.get('/:id', (req, res, next) => {
   util.getToken()
