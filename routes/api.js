@@ -107,15 +107,7 @@ router.get('/:id', (req, res, next) => {
           return;
         }
 
-        const msg = {
-          name: body.animal.name,
-          photo: body.animal.photos[0] ? body.animal.photos[0].full : null,
-          description: body.animal.description,
-          breed: body.animal.breeds.primary,
-          id: body.animal.id
-        };
-
-        res.status(200).send(msg);
+        res.status(200).send(body.animal);
       })
     })
     .catch(err => {
