@@ -74,9 +74,7 @@ router.get('/types', (req, res, next) => {
           return;
         }
 
-        const msg = body.types.map(x => x.name.toLowerCase());
-
-        res.status(200).send(msg);
+        res.status(200).send(body.types);
       })
     })
     .catch(err => {
