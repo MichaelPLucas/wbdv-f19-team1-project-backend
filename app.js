@@ -10,6 +10,7 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
+var userRouter = require('./routes/user');
 
 var app = express();
 
@@ -35,9 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
-
-var userRouter = require('./routes/user');
-userRouter(app)
+app.use('/users', userRouter);
 
 var shelterRouter = require('./routes/shelter');
 shelterRouter(app)
