@@ -7,7 +7,7 @@ const util = require('../util');
 router.post('/', (req, res, next) => {
   let urlParams = '';
   for (let prop in req.body) {
-    if (req.body.hasOwnProperty(prop)) {
+    if (req.body.hasOwnProperty(prop) && req.body[prop] !== '') {
       urlParams += prop + '=' + req.body[prop] + '&';
     }
   }
