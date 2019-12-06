@@ -8,6 +8,10 @@ function findAllEvents() {
 	return eventModel.find()
 }
 
+function findEventById(eventId) {
+  return eventModel.findOne({ _id: eventId })
+}
+
 function searchByName(name) {
   return eventModel.find(
     { name: { $regex: name, $options: "i" } }
@@ -33,5 +37,5 @@ function deleteEvent(eventId) {
 }
 
 module.exports = {
-	createEvent, findAllEvents, searchByName, updateEvent, registerUser, deleteEvent
+	createEvent, findAllEvents, findEventById, searchByName, updateEvent, registerUser, deleteEvent
 };

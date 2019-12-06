@@ -9,8 +9,15 @@ router.get('/', (req, res) => {
     .then(events => res.json(events));
 });
 
+/* GET route for id */
+router.get('/:eid', (req, res) => {
+  eventDao
+    .findEventById(req.params.eid)
+    .then(event => res.json(event));
+});
+
 /* GET route for search */
-router.get('/:searchText', (req, res) => {
+router.get('/search/:searchText', (req, res) => {
   eventDao
     .searchByName(req.params.searchText)
     .then(events => res.json(events));
