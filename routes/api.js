@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
     .then(token => {
       const options = {
         method: 'GET',
-        url: 'https://api.petfinder.com/v2/animals?' + urlParams.slice(0, urlParams.length - 1),
+        url: encodeURI('https://api.petfinder.com/v2/animals?' + urlParams.slice(0, urlParams.length - 1)),
         headers: {
           'Authorization': 'Bearer ' + token
         },
