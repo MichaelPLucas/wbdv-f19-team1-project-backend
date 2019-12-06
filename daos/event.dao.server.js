@@ -8,12 +8,10 @@ function findAllEvents() {
 	return eventModel.find()
 }
 
-function findEventById(eventId) {
-	return eventModel.findById(eventId)
-}
-
-function findEventByName(eventname) {
-	return eventModel.findOne({eventname: eventname})
+function searchByName(name) {
+  return eventModel.find(
+    { name: { $regex: name, $options: "i" } }
+  )
 }
 
 function updateEvent(eventId, eventUpdates) {
@@ -23,11 +21,17 @@ function updateEvent(eventId, eventUpdates) {
 	)
 }
 
+function registerUser(eventId, userId) {
+  return eventModel.update(
+    { _id: eventId },
+    { $push: { going: userId } }
+  )
+}
+
 function deleteEvent(eventId) {
 	return eventModel.remove({_id: eventId})
 }
 
 module.exports = {
-	createEvent, findAllEvents, findEventById,
-	findEventByName, updateEvent, deleteEvent
+	createEvent, findAllEvents, searchByName, updateEvent, registerUser, deleteEvent
 };
