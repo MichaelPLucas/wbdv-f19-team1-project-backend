@@ -6,6 +6,7 @@ var eventSchema = mongoose.Schema({
   location: String,
   description: String,
   users: [mongoose.Schema.Types.ObjectId],
+  owner: mongoose.Schema.Types.ObjectId,
 	createdAt: {type: Date, default: Date.now}
 }, {collection: 'events'});
 
