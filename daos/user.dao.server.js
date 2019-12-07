@@ -35,14 +35,18 @@ function addAnimal(userId, animalId) {
 		{new: true}
 )}
 
+function getUsersByIdBatch(userIds) {
+  return userModel.find({ _id: { $in: userIds.map(id => mongoose.Types.ObjectId(id)) } });
+}
+
 function searchByUsername(searchText) {
 	return userModel.find(
 	  { username: { $regex: searchText, $options: "i" } }
 	);
-  }
+}
 
 module.exports = {
 	createUser, findAllUsers, findUserById,
 	findUserByUsername, updateUser, deleteUser, 
-	addAnimal, searchByUsername
+	addAnimal, searchByUsername, getUsersByIdBatch
 }
