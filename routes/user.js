@@ -92,6 +92,14 @@ function getAnimals(req, res) {
     });
 }
 
+function getUsersByIdBatch(req, res) {
+  userDao.getUsersByIdBatch(req.body.userIds)
+    .then(users => {
+      users.map(x => x.password = undefined);
+      res.json(users);
+    })
+}
+
 function searchForUsers(req, res) {
   userDao.searchByUsername(req.params.searchText)
     .then(users => {
@@ -125,6 +133,7 @@ router.put('/:sid/:aid', addAnimal);
 router.delete('/:sid', deleteUser);
 router.get('/:sid/animals', getAnimals);
 router.get('/login/:username/:password', login);
+router.post('/getBatch', getUsersByIdBatch);
 router.get('/search/:searchText', searchForUsers);
 router.put('/:sid/friend/:fid', addFriend);
 router.get('/:sid/friends', getFriends);
