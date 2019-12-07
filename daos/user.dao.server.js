@@ -1,3 +1,4 @@
+var mongoose = require('mongoose');
 var userModel = require('../models/user.model.server');
 
 function createUser(user) {
@@ -17,9 +18,10 @@ function findUserByUsername(username) {
 }
 
 function updateUser(userId, userUpdates) {
-	return userModel.update(
-		{_id: userId},
-		{$set: userUpdates}
+	return userModel.findByIdAndUpdate(
+		mongoose.Types.ObjectId(userId),
+		{$set: userUpdates},
+		{new: true}
 	)
 }
 

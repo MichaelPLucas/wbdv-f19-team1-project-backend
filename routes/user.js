@@ -3,8 +3,6 @@ const router = express.Router()
 var userDao = require('../daos/user.dao.server');
 
 function createUser(req, res) {
-  console.log("CREATE USER")
-  console.log(req.body)
   var user = req.body
   userDao
     .createUser(user)
