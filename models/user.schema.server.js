@@ -11,6 +11,12 @@ var userSchema = mongoose.Schema(
       enum: ["user", "admin"],
       default: "user"
     },
+    animals: [
+      {
+        type: String,
+        ref: "AnimalSchema.apiId"
+      }
+    ],
     createdAt: { type: Date, default: Date.now }
   },
   { collection: "users" }

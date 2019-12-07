@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router()
 var userDao = require('../daos/user.dao.server');
+var animalDao = require('../daos/animal.dao.server');
 
 function createUser(req, res) {
   var user = req.body
@@ -62,7 +63,6 @@ function login(req, res) {
     .then(user => {
       if (!user)
         return
-
       if (user.password === password) {
         user.password = undefined;
         res.json(user);
@@ -72,12 +72,34 @@ function login(req, res) {
     });
 }
 
+function addAnimal(req, res) {
+  var userId = req.params['sid'];
+  var animalId = req.params['aid'];
+  animalDao
+    .addUser(animalId, userId)
+    .then(status => console.log(status))
+  userDao
+    .addAnimal(userId, animalId)
+    .then(status => res.json(status))
+}
+
+function getAnimals(req, res) {
+  var userId = req.params['sid'];
+  userDao
+    .findUserById(userId)
+    .then(user => {
+      res.json(user.animals);
+    })
+}
+
 router.post('/', createUser);
 router.get('/', findAllUsers);
 router.get('/:sid', findUserById);
 router.get('/username/:username', findUserByUsername);
 router.put('/:sid', updateUser);
+router.put('/:sid/:aid', addAnimal);
 router.delete('/:sid', deleteUser);
+router.get('/:sid/animals', getAnimals);
 router.get('/login/:username/:password', login);
 
 module.exports = router;

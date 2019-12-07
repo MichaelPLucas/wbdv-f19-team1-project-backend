@@ -29,7 +29,14 @@ function deleteUser(userId) {
 	return userModel.remove({_id: userId})
 }
 
+function addAnimal(userId, animalId) {
+	return userModel.findByIdAndUpdate(userId,
+		{ $push: { animals: animalId }},
+		{new: true}
+)}
+
 module.exports = {
 	createUser, findAllUsers, findUserById,
-	findUserByUsername, updateUser, deleteUser
+	findUserByUsername, updateUser, deleteUser, 
+	addAnimal
 };
