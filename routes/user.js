@@ -72,6 +72,14 @@ function login(req, res) {
     });
 }
 
+function searchForUsers(req, res) {
+  userDao.searchByUsername(req.params.searchText)
+    .then(users => {
+      users.map(x => x.password = undefined);
+      res.json(users)
+    });
+}
+
 router.post('/', createUser);
 router.get('/', findAllUsers);
 router.get('/:sid', findUserById);
@@ -79,5 +87,6 @@ router.get('/username/:username', findUserByUsername);
 router.put('/:sid', updateUser);
 router.delete('/:sid', deleteUser);
 router.get('/login/:username/:password', login);
+router.get('/search/:searchText', searchForUsers);
 
 module.exports = router;

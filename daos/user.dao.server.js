@@ -29,7 +29,13 @@ function deleteUser(userId) {
 	return userModel.remove({_id: userId})
 }
 
+function searchByUsername(searchText) {
+  return userModel.find(
+    { username: { $regex: searchText, $options: "i" } }
+  );
+}
+
 module.exports = {
 	createUser, findAllUsers, findUserById,
-	findUserByUsername, updateUser, deleteUser
+	findUserByUsername, updateUser, deleteUser, searchByUsername
 };
