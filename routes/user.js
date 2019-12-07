@@ -107,6 +107,15 @@ function addFriend(req, res) {
   userDao.addFriend(friendId, userId);
 }
 
+function getFriends(req, res) {
+  var userId = req.params['sid'];
+  userDao
+    .findUserById(userId)
+    .then(user => {
+      res.json(user.friends);
+    });
+}
+
 router.post('/', createUser);
 router.get('/', findAllUsers);
 router.get('/:sid', findUserById);
@@ -118,5 +127,6 @@ router.get('/:sid/animals', getAnimals);
 router.get('/login/:username/:password', login);
 router.get('/search/:searchText', searchForUsers);
 router.put('/:sid/friend/:fid', addFriend);
+router.get('/:sid/friends', getFriends);
 
 module.exports = router;
