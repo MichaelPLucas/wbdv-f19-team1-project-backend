@@ -40,9 +40,6 @@ app.use('/api', apiRouter);
 app.use('/users', userRouter);
 app.use('/events', eventRouter);
 
-var shelterRouter = require('./routes/shelter');
-shelterRouter(app)
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
