@@ -45,8 +45,16 @@ function searchByUsername(searchText) {
 	);
 }
 
+function addFriend(userId, friendId) {
+  return userModel.findByIdAndUpdate(
+	userId,
+	{ $push: { friends: friendId } },
+	{ new: true }
+  );
+}
+
 module.exports = {
 	createUser, findAllUsers, findUserById,
 	findUserByUsername, updateUser, deleteUser, 
-	addAnimal, searchByUsername, getUsersByIdBatch
+	addAnimal, searchByUsername, getUsersByIdBatch, addFriend
 }
