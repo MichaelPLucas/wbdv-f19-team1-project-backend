@@ -20,7 +20,6 @@ var password = process.env.PASSWORD;
 var url = 'ds053597.mlab.com:53597'
 var schema = 'heroku_l8q5pg2q'
 
-console.log('mongodb://'+username+':'+password+'@'+url+'/'+schema)
 mongoose.connect('mongodb://'+username+':'+password+'@'+url+'/'+schema, {useNewUrlParser: true});
 
 app.use(cors());

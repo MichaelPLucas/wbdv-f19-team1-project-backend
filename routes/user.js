@@ -3,16 +3,16 @@ const router = express.Router()
 var userDao = require('../daos/user.dao.server');
 
 function createUser(req, res) {
-  console.log('createUser')
+  console.log("CREATE USER")
+  console.log(req.body)
   var user = req.body
-  console.log(user)
   userDao
     .createUser(user)
+    .catch(err => res.send(err))
     .then(response => res.send(response))
 }
 
 function findAllUsers(req, res) {
-  console.log('findAllUsers')
   userDao
     .findAllUsers()
     .then(users => {
@@ -42,6 +42,7 @@ function findUserByUsername(req, res) {
 }
 
 function updateUser(req, res) {
+  console.log("update user")
   var userId = req.params['sid'];
   var userUpdates = req.body
   userDao
