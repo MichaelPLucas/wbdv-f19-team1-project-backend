@@ -89,7 +89,15 @@ function getAnimals(req, res) {
     .findUserById(userId)
     .then(user => {
       res.json(user.animals);
-    })
+    });
+}
+
+function searchForUsers(req, res) {
+  userDao.searchByUsername(req.params.searchText)
+    .then(users => {
+      users.map(x => x.password = undefined);
+      res.json(users)
+    });
 }
 
 router.post('/', createUser);
@@ -101,5 +109,6 @@ router.put('/:sid/:aid', addAnimal);
 router.delete('/:sid', deleteUser);
 router.get('/:sid/animals', getAnimals);
 router.get('/login/:username/:password', login);
+router.get('/search/:searchText', searchForUsers);
 
 module.exports = router;

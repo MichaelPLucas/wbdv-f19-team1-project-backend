@@ -35,8 +35,14 @@ function addAnimal(userId, animalId) {
 		{new: true}
 )}
 
+function searchByUsername(searchText) {
+	return userModel.find(
+	  { username: { $regex: searchText, $options: "i" } }
+	);
+  }
+
 module.exports = {
 	createUser, findAllUsers, findUserById,
 	findUserByUsername, updateUser, deleteUser, 
-	addAnimal
-};
+	addAnimal, searchByUsername
+}
