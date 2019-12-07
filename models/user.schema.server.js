@@ -17,6 +17,12 @@ var userSchema = mongoose.Schema(
         ref: "AnimalSchema.apiId"
       }
     ],
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+		ref: "UserSchema"
+      }
+    ],
     createdAt: { type: Date, default: Date.now }
   },
   { collection: "users" }

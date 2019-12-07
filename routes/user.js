@@ -100,6 +100,13 @@ function searchForUsers(req, res) {
     });
 }
 
+function addFriend(req, res) {
+  userId = req.params['sid'];
+  friendId = req.params['fid'];
+  userDao.addFriend(userId, friendId);
+  userDao.addFriend(friendId, userId);
+}
+
 router.post('/', createUser);
 router.get('/', findAllUsers);
 router.get('/:sid', findUserById);
@@ -110,5 +117,6 @@ router.delete('/:sid', deleteUser);
 router.get('/:sid/animals', getAnimals);
 router.get('/login/:username/:password', login);
 router.get('/search/:searchText', searchForUsers);
+router.put('/:sid/friend/:fid', addFriend);
 
 module.exports = router;
