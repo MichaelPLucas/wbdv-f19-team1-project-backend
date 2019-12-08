@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 var animalDao = require("../daos/animal.dao.server");
+var userDao = require("../daos/user.dao.server");
 
 function createAnimal(req, res) {
   var animal = req.body;
