@@ -58,6 +58,11 @@ function getUserCount(req, res) {
   });
 }
 
+function getBatch(req, res) {
+  animalDao.getBatchByAPIIds(req.body.apiIds)
+    .then(animals => res.json(animals))
+}
+
 router.post("/", createAnimal);
 router.get("/", findAllAnimals);
 router.get("/:sid", findAnimalById);
@@ -66,5 +71,6 @@ router.put("/:sid/:uid", addUser);
 router.delete("/:sid", deleteAnimal);
 router.get("/:sid/users", getUsers);
 router.get("/:sid/users/count", getUserCount);
+router.post("/getBatch", getBatch);
 
 module.exports = router;
