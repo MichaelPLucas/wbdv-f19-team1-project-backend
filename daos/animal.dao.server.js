@@ -21,7 +21,7 @@ function addUser(animalId, userId) {
 	return animalModel.update(
         { apiId: animalId },
 		{ $push: { users: userId }},
-		{new: true}
+        { upsert: true, new: true },
 	)
 }
 
