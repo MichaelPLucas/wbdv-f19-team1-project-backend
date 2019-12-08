@@ -37,7 +37,13 @@ function deleteAnimal(animalId) {
 	return animalModel.remove({_id: animalId})
 }
 
+function getBatchByAPIIds(apiIds) {
+  return animalModel.find(
+    { apiId: { $in: apiIds } }
+  );
+}
+
 module.exports = {
 	createAnimal, findAllAnimals, findAnimalById,
-    updateAnimal, deleteAnimal, addUser, findAnimalByApiId
+    updateAnimal, deleteAnimal, addUser, findAnimalByApiId, getBatchByAPIIds
 };
