@@ -109,10 +109,11 @@ function searchForUsers(req, res) {
 }
 
 function addFriend(req, res) {
+  console.log("Add friend")
   userId = req.params['sid'];
   friendId = req.params['fid'];
-  userDao.addFriend(userId, friendId);
-  userDao.addFriend(friendId, userId);
+  userDao.addFriend(friendId, userId).then(user => console.log(user));
+  userDao.addFriend(userId, friendId).then(user =>res.json(user));
 }
 
 function getFriends(req, res) {
